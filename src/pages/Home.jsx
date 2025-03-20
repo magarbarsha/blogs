@@ -45,8 +45,9 @@ const Home = () => {
 <div className="flex flex-wrap p1-20">
   {
     blogs.map(function(blog){
+      console.log(blog,"this is a blog inside map")
       return(
-        <ProductList />
+        <ProductList key={blog.id} blog={blog} />
       )
     })
   }
