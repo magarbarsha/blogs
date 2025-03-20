@@ -1,13 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../Component/Navbar'
 import Footer from '../Component/Footer'
 import ProductList from '../Component/ProductList'
 import axios from 'axios'
 const Home = () => {
+  // let name="Barsha"
+  // const[name,setName]=useState("Barsha")
+  // setName("rahul")
+  // const[age,setAge]=useState(22)
+  // const[data,setData]=useState(["Barsha"])
+  // const[datas,setDatas]=useState({
+  //   name:"Barsha",
+  //   address: "itahari"
+  // })
+  const [blogs,setBlogs]=useState([])
  async function fetchBlog(){
     let response= await axios.get("https://67dbaaae1fd9e43fe4755a15.mockapi.io/blogs")
-    console.log(response)
+   if(response.status==200){
+    // console.log(response.data)
+    setBlogs(response.data)
+      
+    }else{
+      console.log("error")
+    }
   }
+  //hooks
+  useEffect(()=>{
+    fetchBlog()
+    // console.log("hahaha this is trigger")
+  },[])
+  // console.log(blogs,"this is a blog created using usestate")
   return (
     <>
     <Navbar />
@@ -21,9 +43,13 @@ const Home = () => {
   </div>
 </div>
 <div className="flex flex-wrap p1-20">
-<ProductList />
-<ProductList />
-<ProductList />
+  {
+    blogs.map(function(blog){
+      return(
+        <ProductList />
+      )
+    })
+  }
 </div>
 <Footer />
 
